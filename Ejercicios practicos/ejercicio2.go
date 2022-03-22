@@ -22,24 +22,31 @@ func main() {
 		//exit(1)
 		return
 	}
-	fmt.Println("Las categorias son: ", cats)
+	fmt.Println("Las categorias son: ")
+
+	for i := 0; i < len(cats); i++ {
+
+		fmt.Println(cats[i].Name)
+
+	}
 
 }
 func GetCategories(siteID string) (Categories, error) {
-	response, err1 := http.Get("https://api.mercadolibre.com/sites/MLA/search?q=Motrola")
+	response, err1 := http.Get("https://api.mercadolibre.com/sites/MLA/categories")
 	if err1 != nil {
 		fmt.Println("Error: ", err1.Error())
 		//exit(1)
 		return nil, nil
 	}
+	//data, err := response.Bytes()
 	bytes, err2 := ioutil.ReadAll(response.Body)
 	if err2 != nil {
 		fmt.Println("Error: ", err2.Error())
 		//exit(1)
 		return nil, nil
 	}
-	var categories Categories
-	err := json.Unmarshal(bytes, &categories)
+	var cats Categories
+	err := json.Unmarshal(bytes, &cats)
 
 	if err != nil {
 		fmt.Println("Error: ", err.Error())
@@ -47,6 +54,6 @@ func GetCategories(siteID string) (Categories, error) {
 		return nil, nil
 	}
 
-	return categories, nil
+	return cats, nil
 
 }
