@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func division(num1 int, num2 int) (float32, error) {
+func division(num1 float32, num2 float32) (float32, error) {
 
 	if num2 == 0 {
 		err := errors.New("Se ha ingresado un cero")
